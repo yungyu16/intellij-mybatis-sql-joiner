@@ -1,0 +1,43 @@
+<idea-plugin>
+    <id>com.dongshi.jetbrains.mybatislog</id>
+    <name>MybatisSqlLogJoiner</name>
+    <version>1.0</version>
+    <vendor email="448687557@qq.com" url="https://github.com/yungyu16">yungyu16</vendor>
+
+    <description><![CDATA[
+      <p><b>MybatisSqlLogJoiner</b></p>
+      <br/>
+      <p>
+      用于根据MybatisSql日志拼接生成完整的Sql。
+      </p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      <ul>
+        <li>初始化提交</li>
+        <li>完善代码和注释</li>
+      </ul>
+      <a href="https://github.com/yungyu16"><b>github主页</b></a>
+]]>
+    </change-notes>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0"/>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <action id="MybatisSqlLogJoinAction.MainTool"
+                class="com.github.yungyu16.mybatissql.actions.MybatisSqlLogJoinAction"
+                icon="PluginIcons.mybatisIcon_13"
+                text="MybatisSqlLogJoiner" description="根据mybatis日志解析拼接SQL">
+            <add-to-group group-id="MainToolBar" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
