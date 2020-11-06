@@ -1,24 +1,30 @@
 <idea-plugin>
-    <id>com.dongshi.jetbrains.mybatislog</id>
+    <id>com.github.yungyu16.intellij.sqllogjoiner</id>
     <name>MybatisSqlLogJoiner</name>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <vendor email="448687557@qq.com" url="https://github.com/yungyu16">yungyu16</vendor>
-
     <description><![CDATA[
-      <p><b>MybatisSqlLogJoiner</b></p>
-      <br/>
+      这是一个用于拼接Mybatis输出的Sql日志的插件,主要用于便捷的自动替换Sql日志中的参数占位符<br><br>
       <p>
-      用于根据MybatisSql日志拼接生成完整的Sql。
+        <b>用法:</b><br>
+        1.将包含Mybatis输出的Sql日志Ctrl+C到粘贴板<br>
+        2.点击Tool->SqlLogJoiner、或点击Toolbar上最后一个按钮SqlLogJoiner<br>
+        3.粘贴板中已经有解析好的完整Sql,Ctrl+V复制到需要的位置即可<br>
       </p>
-    ]]></description>
-
+      <p>
+        <b>原理和技巧:</b><br>
+        Mybatis每次执行Sql会输出三行日志,各行日志中关键字按顺序为:Preparing、Parameters、Total。<br>
+        第1步中复制原始日志中至少要包含一条Preparing日志。<br>
+        本插件按行读取粘贴板中的字符串,依次循环读取Preparing日志和Parameters日志、两两组队、解析参数、拼接Sql、复制到粘贴板。<br>
+      </p>
+    ]]>
+    </description>
     <change-notes><![CDATA[
-      <ul>
-        <li>初始化提交</li>
-        <li>完善代码和注释</li>
-      </ul>
-      <a href="https://github.com/yungyu16"><b>github主页</b></a>
-]]>
+        <h3>1.0.0: 第一个版本</h3>
+		<ul>
+			<li>第一个IDEA插件,第一个完整功能版本的第一次发布.</li>
+		</ul>
+    ]]>
     </change-notes>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
@@ -36,8 +42,14 @@
         <action id="MybatisSqlLogJoinAction.MainTool"
                 class="com.github.yungyu16.intellij.sqllogparser.actions.SqlLogParseAction"
                 icon="PluginIcons.mybatisIcon_13"
-                text="MybatisSqlLogJoiner" description="根据mybatis日志解析拼接SQL">
+                text="SqlLogJoiner" description="根据mybatis日志解析拼接SQL">
             <add-to-group group-id="MainToolBar" anchor="last"/>
+        </action>
+        <action id="MybatisSqlLogJoinAction.ToolsMenu"
+                class="com.github.yungyu16.intellij.sqllogparser.actions.SqlLogParseAction"
+                icon="PluginIcons.mybatisIcon_16"
+                text="SqlLogJoiner" description="根据mybatis日志解析拼接SQL">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
