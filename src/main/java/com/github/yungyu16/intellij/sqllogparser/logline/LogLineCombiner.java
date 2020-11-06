@@ -41,4 +41,14 @@ public class LogLineCombiner implements Function<String, LogLineHolder> {
         }
         return null;
     }
+
+    public Optional<LogLineHolder> latestLogHolder() {
+        if (logHolderCombiner == null) {
+            return Optional.empty();
+        }
+        if (logHolderCombiner.getStatementLine() == null) {
+            return Optional.empty();
+        }
+        return Optional.of(logHolderCombiner);
+    }
 }

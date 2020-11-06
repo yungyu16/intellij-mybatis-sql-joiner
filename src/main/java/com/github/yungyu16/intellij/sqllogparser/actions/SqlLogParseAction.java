@@ -2,6 +2,7 @@ package com.github.yungyu16.intellij.sqllogparser.actions;
 
 import com.github.yungyu16.intellij.sqllogparser.error.TipException;
 import com.github.yungyu16.intellij.sqllogparser.logline.LogLineParser;
+import com.google.common.base.Strings;
 import com.intellij.notification.*;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -28,6 +29,9 @@ public class SqlLogParseAction extends AnAction {
         try {
             String sqlLog = getClipContent().orElseThrow(() -> new TipException("请先复制sql日志到系统粘贴板"));
             String sqlStatement = LogLineParser.parse(sqlLog);
+            if (Strings.isNullOrEmpty(sqlStatement)) {
+                throw new TipException("未解析出Sql,请检查是否复制了完整的日志");
+            }
             setClipContent(sqlStatement);
         } catch (TipException ex) {
             result = "FAIL";

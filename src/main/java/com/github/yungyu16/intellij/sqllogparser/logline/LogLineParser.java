@@ -7,15 +7,12 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.text.StringUtil;
 import org.apache.commons.codec.binary.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -32,7 +29,6 @@ public class LogLineParser {
     static final String PARAMETER_SEPARATOR = ",";
     static final String PARAMETER_PLACEHOLDER = "\\?";
     static final Pattern PARAMETER_PATTERN = Pattern.compile("(.*)\\((.+)\\)");
-    static final Pattern PLACEHOLDER_PATTERN = Pattern.compile(PARAMETER_PLACEHOLDER);
     static final Set<String> RAW_PARAMETER_TYPES = Primitives.allWrapperTypes().stream().map(Class::getSimpleName).collect(Collectors.toSet());
 
     public static String parse(String sqlLog) {
@@ -50,13 +46,16 @@ public class LogLineParser {
         try (ByteArrayInputStream sqlIn = new ByteArrayInputStream(StringUtils.getBytesUtf8(sqlLog));
              InputStreamReader transform = new InputStreamReader(sqlIn);
              BufferedReader sqlReader = new BufferedReader(transform)) {
-            AtomicReference<LogLineHolder> tempHolder = new AtomicReference<>();
-            return sqlReader.lines()
+            LogLineCombiner combiner = new LogLineCombiner();
+            String collectSql = sqlReader.lines()
                     .filter(line -> !Strings.isNullOrEmpty(line))
-                    .map(newLogLineCombiner())
+                    .map(combiner)
                     .filter(Objects::nonNull)
                     .map(LogLineHolder::formattedSqlStatement)
                     .collect(Collectors.joining());
+            return collectSql + (combiner.latestLogHolder()
+                    .map(LogLineHolder::formattedSqlStatement)
+                    .orElse(""));
         } catch (IOException e) {
             log.error("解析sql日志异常", e);
             throw new TipException("解析sql日志异常");
@@ -80,11 +79,6 @@ public class LogLineParser {
         return Optional.of(payload);
     }
 
-    @NotNull
-    private static Function<String, LogLineHolder> newLogLineCombiner() {
-        return new LogLineCombiner();
-    }
-
     static boolean isAlreadyFormattedSqlStatement(String sqlLog) {
         String finalSqlLog = sqlLog.toUpperCase().trim();
         return Stream.of("SELECT", "UPDATE", "DELETE", "INSERT").anyMatch(finalSqlLog::startsWith);
@@ -99,6 +93,9 @@ public class LogLineParser {
                 .stream()
                 .map(String::trim)
                 .map(it -> {
+                    if ("null".equals(it)) {
+                        return Pair.<String, String>create("null", null);
+                    }
                     Matcher matcher = PARAMETER_PATTERN.matcher(it);
                     if (!matcher.matches()) {
                         return Pair.create("", "");
@@ -111,7 +108,7 @@ public class LogLineParser {
     private static String formatParameter(Pair<String, String> paramInfo) {
         String val = paramInfo.getFirst();
         String type = paramInfo.getSecond();
-        if (RAW_PARAMETER_TYPES.contains(type)) {
+        if (type == null || RAW_PARAMETER_TYPES.contains(type)) {
             return val;
         }
         return "'" + StringUtil.escapeChar(val, '\'') + "'";

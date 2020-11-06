@@ -37,6 +37,7 @@ public class LogLineParserTest {
         System.out.println(sb.toString());
         ArrayList<String> params = Lists.newArrayList("(Integer)");
         params.add("1(Integer)");
+        params.add("null");
         params.add("2020-10-30 18:09:00.058(Timestamp)");
         params.forEach(it -> {
             System.out.println("》》》》》" + it);
