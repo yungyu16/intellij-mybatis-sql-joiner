@@ -1,7 +1,7 @@
 package com.github.yungyu16.intellij.sqllogparser.actions;
 
 import com.github.yungyu16.intellij.sqllogparser.error.TipException;
-import com.github.yungyu16.intellij.sqllogparser.parse.LogLineParser;
+import com.github.yungyu16.intellij.sqllogparser.logline.LogLineParser;
 import com.intellij.notification.*;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -17,7 +17,7 @@ import java.util.Optional;
  * CreatedDate: 2020/11/5
  * Author: songjialin
  */
-public class ParseMybatisSqlLogAction extends AnAction {
+public class SqlLogParseAction extends AnAction {
     private static final Logger log = Logger.getInstance(LogLineParser.class);
 
     @Override

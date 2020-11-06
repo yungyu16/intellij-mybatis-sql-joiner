@@ -1,4 +1,4 @@
-package com.github.yungyu16.intellij.sqllogparser.parse;
+package com.github.yungyu16.intellij.sqllogparser.logline;
 
 import com.google.common.base.Strings;
 

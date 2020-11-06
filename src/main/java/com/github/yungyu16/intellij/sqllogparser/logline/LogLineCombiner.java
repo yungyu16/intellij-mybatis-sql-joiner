@@ -1,4 +1,4 @@
-package com.github.yungyu16.intellij.sqllogparser.parse;
+package com.github.yungyu16.intellij.sqllogparser.logline;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -36,11 +36,9 @@ public class LogLineCombiner implements Function<String, LogLineHolder> {
         LogLineHolder logLineHolderTemp = this.logHolderCombiner;
         if (logLineHolderTemp != null) {
             logLineHolderTemp.setParameterLine(parameterLine);
+            this.logHolderCombiner = null;
+            return logLineHolderTemp;
         }
-
-        if (logHolderCombiner != null) {
-            logHolderCombiner.setParameterLine(parameterLine);
-        }
-        return logHolderCombiner;
+        return null;
     }
 }
