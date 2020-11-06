@@ -34,7 +34,7 @@
 
     <actions>
         <action id="MybatisSqlLogJoinAction.MainTool"
-                class="com.github.yungyu16.mybatissql.actions.MybatisSqlLogJoinAction"
+                class="com.github.yungyu16.intellij.sqllogparser.actions.ParseMybatisSqlLogAction"
                 icon="PluginIcons.mybatisIcon_13"
                 text="MybatisSqlLogJoiner" description="根据mybatis日志解析拼接SQL">
             <add-to-group group-id="MainToolBar" anchor="last"/>

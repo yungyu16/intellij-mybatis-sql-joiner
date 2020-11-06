@@ -1,7 +1,7 @@
-package com.github.yungyu16.mybatissql.actions;
+package com.github.yungyu16.intellij.sqllogparser.actions;
 
-import com.github.yungyu16.mybatissql.MybatisSqlLogJoiner;
-import com.github.yungyu16.mybatissql.error.TipException;
+import com.github.yungyu16.intellij.sqllogparser.error.TipException;
+import com.github.yungyu16.intellij.sqllogparser.parse.LogLineParser;
 import com.intellij.notification.*;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -17,8 +17,8 @@ import java.util.Optional;
  * CreatedDate: 2020/11/5
  * Author: songjialin
  */
-public class MybatisSqlLogJoinAction extends AnAction {
-    private static final Logger log = Logger.getInstance(MybatisSqlLogJoiner.class);
+public class ParseMybatisSqlLogAction extends AnAction {
+    private static final Logger log = Logger.getInstance(LogLineParser.class);
 
     @Override
     public void actionPerformed(AnActionEvent e) {
@@ -27,7 +27,7 @@ public class MybatisSqlLogJoinAction extends AnAction {
         String detail = "拼接完成,结果已复制到粘贴板";
         try {
             String sqlLog = getClipContent().orElseThrow(() -> new TipException("请先复制sql日志到系统粘贴板"));
-            String sqlStatement = MybatisSqlLogJoiner.parse(sqlLog);
+            String sqlStatement = LogLineParser.parse(sqlLog);
             setClipContent(sqlStatement);
         } catch (TipException ex) {
             result = "FAIL";

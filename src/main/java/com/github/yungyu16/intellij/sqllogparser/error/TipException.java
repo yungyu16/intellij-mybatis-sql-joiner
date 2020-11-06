@@ -1,4 +1,4 @@
-package com.github.yungyu16.mybatissql.error;
+package com.github.yungyu16.intellij.sqllogparser.error;
 
 /**
  * CreatedDate: 2020/11/5
