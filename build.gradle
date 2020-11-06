@@ -17,3 +17,7 @@ dependencies {
 intellij {
     version '2020.2.3'
 }
+publishPlugin {
+    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+    channels 'eap'
+}
