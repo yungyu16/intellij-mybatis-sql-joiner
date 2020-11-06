@@ -4,13 +4,14 @@
     <version>1.0.0</version>
     <vendor email="448687557@qq.com" url="https://github.com/yungyu16">yungyu16</vendor>
     <description><![CDATA[
-      这是一个用于拼接Mybatis输出的Sql日志的插件,主要用于便捷的自动替换Sql日志中的参数占位符<br><br>
+      这是一个用于拼接Mybatis输出的Sql日志的插件,可以便捷的自动替换Sql日志中的参数占位符<br><br>
       <p>
         <b>用法:</b><br>
-        1.将包含Mybatis输出的Sql日志Ctrl+C到粘贴板<br>
+        1.将包含Mybatis输出的Sql日志Ctrl+C到粘贴板(可包含多条sql)<br>
         2.点击Tool->SqlLogJoiner、或点击Toolbar上最后一个按钮SqlLogJoiner<br>
         3.粘贴板中已经有解析好的完整Sql,Ctrl+V复制到需要的位置即可<br>
       </p>
+      <br><br>
       <p>
         <b>原理和技巧:</b><br>
         Mybatis每次执行Sql会输出三行日志,各行日志中关键字按顺序为:Preparing、Parameters、Total。<br>
