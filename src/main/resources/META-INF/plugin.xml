@@ -4,6 +4,22 @@
     <version>1.0.0</version>
     <vendor email="448687557@qq.com" url="https://github.com/yungyu16">yungyu16</vendor>
     <description><![CDATA[
+      This is a plugin for splicing the Sql log output by Mybatis, which can easily and automatically replace the parameter placeholders in the Sql log<br><br>
+      <p>
+        <b>usage:</b><br>
+        1.Ctrl+C the Sql log containing Mybatis output to the pasteboard (can contain multiple sql)<br>
+        2.Click Tool->SqlLogJoiner, or click the last button SqlLogJoiner on the Toolbar<br>
+        3.There is already a parsed complete Sql in the pasteboard, just copy Ctrl+V to the desired location<br>
+      </p>
+      <br><br>
+      <p>
+        <b>
+        Principles and techniques:</b><br>
+        Each time Mybatis executes Sql, it will output three lines of logs, and the keywords in each line of logs are in order: Preparing, Parameters, and Total.<br>
+        At least one Preparing log must be included in the original log copied in step 1.<br>
+        This plug-in reads the string in the pasteboard line by line, reads the Preparation log and the Parameters log, two or two groups, parsing parameters, splicing SQL, and copying to the pasteboard in turn.<br>
+      </p>
+      <br>
       这是一个用于拼接Mybatis输出的Sql日志的插件,可以便捷的自动替换Sql日志中的参数占位符<br><br>
       <p>
         <b>用法:</b><br>
