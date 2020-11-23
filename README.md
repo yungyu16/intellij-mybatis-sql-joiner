@@ -34,13 +34,13 @@ Mybatis依靠其易用性和拓展性在JavaWeb开发领域占据了重要市场
 2. 解析、转换得到完整Sql
 3. 将完整Sql重新设置到粘贴板供粘贴使用
 
-Mybatis每次执行Sql会输出三行日志,各行日志中关键字按顺序为:**Preparing**、**Parameters**、**Total**。
-第1步中复制原始日志中至少要包含一条**Preparing**日志。
+Mybatis每次执行Sql会输出三行日志,各行日志中关键字按顺序为:**Preparing**、**Parameters**、**Total**。     
+第1步中复制原始日志中至少要包含一条**Preparing**日志。       
 本插件按行读取粘贴板中的字符串,依次循环读取**Preparing**日志和**Parameters**日志、两两组队、解析参数、拼接Sql、复制到粘贴板。
 
 # 使用截图
-- 选择合适的日志复制
+## 选择合适的日志复制
 ![截图1](./doc/screenshot_1.png)
-- 点击触发插件处理
+## 点击触发插件处理
 ![截图1](./doc/screenshot_2.png)
 
