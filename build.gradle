@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.github.yungyu16.ideaplugin'
-version '1.0.0'
+version '1.0.1'
 
 repositories {
     mavenCentral()
@@ -15,9 +15,10 @@ dependencies {
 }
 
 intellij {
+    updateSinceUntilBuild false
     version '2020.2.3'
 }
 publishPlugin {
-    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
-    channels 'eap'
+    token ''
+    //channels 'eap'
 }
